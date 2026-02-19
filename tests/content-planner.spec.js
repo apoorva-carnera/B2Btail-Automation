@@ -6,17 +6,16 @@ test.describe(
   "B2B Automation test cases",
   { tag: ["@Regression"] },
   async () => {
-    test("Test case1: Verify UI elements on Content Planner page", async ({
-      page,
-    }) => {
+    test.beforeEach(async ({ page }) => {
       const basepage = new basePage(page);
-      const cont_planner_page = new contentPlannerPage(page);
       await basepage.goTo();
       await basepage.login();
+    });
+
+    test("Test case1: Create Post", async ({ page }) => {
+      const cont_planner_page = new contentPlannerPage(page);
       await cont_planner_page.verifyUIElements();
       await cont_planner_page.createNewPostForCurrentDay();
     });
-
-    test("Test Case2: Create Post", async ({ page }) => {});
   },
 );
