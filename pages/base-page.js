@@ -9,10 +9,11 @@ export default class basePage {
   constructor(page) {
     this.page = page;
 
-    this.email = page.locator("#email");
-    this.password = page.locator("#password");
-    this.login_btn = page.locator("//button[text()='Login']");
-    this.success_message = page.getByText("Welcome back!");
+    this.Email = page.locator("#email");
+    this.Password = page.locator("#password");
+    this.Login_Btn = page.locator("//button[text()='Login']");
+    //this.success_message = page.getByText("Welcome back!");
+    this.Success_Message = page.locator("ol li");
   }
 
   async goTo(url = application_url) {
@@ -20,9 +21,9 @@ export default class basePage {
   }
 
   async login() {
-    await this.email.fill(user_email);
-    await this.password.fill(password);
-    await expect(this.login_btn).toBeEnabled();
-    await this.login_btn.click();
+    await this.Email.fill(user_email);
+    await this.Password.fill(password);
+    await expect(this.Login_Btn).toBeEnabled();
+    await this.Login_Btn.click();
   }
 }
