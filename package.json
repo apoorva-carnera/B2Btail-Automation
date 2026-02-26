@@ -1,0 +1,23 @@
+{
+  "name": "b2btail-automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apoorva-carnera/B2Btail-Automation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/apoorva-carnera/B2Btail-Automation/issues"
+  },
+  "homepage": "https://github.com/apoorva-carnera/B2Btail-Automation#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.2.3"
+  }
+}
