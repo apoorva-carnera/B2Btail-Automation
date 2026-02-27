@@ -1,8 +1,10 @@
 import { expect } from "playwright/test";
 import { faker } from "@faker-js/faker";
+import basePage from "./base-page";
 
-export default class contentPlannerPage {
+export default class contentPlannerPage extends basePage {
   constructor(page) {
+    super(page);
     this.page = page;
 
     this.Left_Nav_Option = page.locator("//span[text()='Content Planner']");
