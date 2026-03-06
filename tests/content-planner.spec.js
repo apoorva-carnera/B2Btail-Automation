@@ -11,6 +11,7 @@ test.describe(
       await contPlannerPage.login();
       await contPlannerPage.verifyUIElements();
       await contPlannerPage.createNewPostForCurrentDay();
+      await contPlannerPage.editPost();
     });
   },
 );

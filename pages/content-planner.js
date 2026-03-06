@@ -26,7 +26,13 @@ export default class contentPlannerPage extends basePage {
     this.Welcome_Message = page.locator("ol li");
     this.Post = page.locator("div h4").last();
     this.Edit_Post = page.locator("#radix-_r_74_");
-    this.Full_Editor = page.getByRole("button", { name: "Open Full Editor" });
+    this.Open_Full_Full_Editor_Btn = page.getByRole("button", {
+      name: "Open Full Editor",
+    });
+    this.Save_Changes_Btn = page.getByRole("button", {
+      name: "Save Changes",
+    });
+    this.edit_Time = page.locator("input[type='time']");
     // //h2[@id="radix-_r_74_"]
     // //button[text()='Open Full Editor']
     // //h4[text()='randomName']
@@ -84,6 +90,19 @@ export default class contentPlannerPage extends basePage {
     await expect(this.Post).toBeVisible();
     await this.page.locator(`//h4[text()='${randomName}']`).click();
     //await expect(this.Edit_Post).toBeVisible();
-    await expect(this.Full_Editor).toBeVisible();
+    await expect(this.Open_Full_Full_Editor_Btn).toBeVisible();
+  }
+
+  async editPost() {
+    const randomName = faker.lorem.sentence(5);
+    await this.Open_Full_Full_Editor_Btn.click();
+    await expect(this.Save_Changes_Btn).toBeVisible();
+    await expect(this.Post_Title).toBeVisible();
+    await this.Post_Title.clear();
+    await this.Post_Title.fill(randomName);
+    await this.edit_Time.click();
+    await this.edit_Time.fill("17:00");
+    //await expect(this.edit_Time).toHaveText("17:00");
+    await this.Save_Changes_Btn.click();
   }
 }
