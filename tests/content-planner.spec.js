@@ -12,8 +12,6 @@ test.describe(
     });
     test("Test Case1: Create Post", async ({ page }) => {
       const contPlannerPage = new contentPlannerPage(page);
-      // await contPlannerPage.goTo();
-      // await contPlannerPage.login();
       await contPlannerPage.verifyUIElements();
       await contPlannerPage.createNewPostForCurrentDay();
       await contPlannerPage.editPost();

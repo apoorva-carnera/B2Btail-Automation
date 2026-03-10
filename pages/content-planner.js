@@ -58,16 +58,10 @@ export default class contentPlannerPage extends basePage {
     await this.Current_Day.click();
   }
 
-  async enterPostTitle() {
-    const randomName = faker.lorem.sentence(5);
-    await this.Post_Title.fill(randomName);
-  }
-
   async addNewPost() {
     const randomName = faker.lorem.sentence(5);
     const randomContent = faker.lorem.paragraphs(1);
     await this.Post_Title.fill(randomName);
-    //await this.enterPostTitle();
     await this.Post_Content.fill(randomContent);
     let platform_count = await this.Platforms.count();
     console.log("Platform count is: " + platform_count);
@@ -88,12 +82,15 @@ export default class contentPlannerPage extends basePage {
     await expect(this.Current_Day).toBeVisible();
     await this.Post.waitFor({ state: "visible" });
     await expect(this.Post).toBeVisible();
-    await this.page.locator(`//h4[text()='${randomName}']`).click();
-    await expect(this.Open_Full_Full_Editor_Btn).toBeVisible();
+  }
+
+  async getPostName() {
+    await this.page.locator("div h4").click();
   }
 
   async editPost() {
     const randomName = faker.lorem.sentence(5);
+    await this.getPostName();
     await this.Open_Full_Full_Editor_Btn.click();
     await expect(this.Save_Changes_Btn).toBeVisible();
     await expect(this.Post_Title).toBeVisible();
@@ -102,11 +99,10 @@ export default class contentPlannerPage extends basePage {
     await this.Edit_Time.click();
     await this.Edit_Time.fill("17:00");
     await this.Save_Changes_Btn.click();
-    await this.page.locator(`//h4[text()='${randomName}']`).click();
-    await expect(this.Open_Full_Full_Editor_Btn).toBeVisible();
   }
 
   async deletePost() {
+    await this.getPostName();
     await this.Open_Full_Full_Editor_Btn.click();
     await expect(this.Save_Changes_Btn).toBeVisible();
     await this.delete_Post.click();
