@@ -32,10 +32,8 @@ export default class contentPlannerPage extends basePage {
     this.Save_Changes_Btn = page.getByRole("button", {
       name: "Save Changes",
     });
-    this.edit_Time = page.locator("input[type='time']");
-    // //h2[@id="radix-_r_74_"]
-    // //button[text()='Open Full Editor']
-    // //h4[text()='randomName']
+    this.Edit_Time = page.locator("input[type='time']");
+    this.delete_Post = page.getByRole("button", { name: "Delete Post" });
   }
 
   async verifyUIElements() {
@@ -45,9 +43,6 @@ export default class contentPlannerPage extends basePage {
     await expect(this.Page_Title).toBeVisible();
     await expect(this.Left_Nav_Option).toHaveText("Content Planner");
     await expect(this.Month).toBeVisible();
-    //await expect(this.Week).toBeVisible();
-    //await expect(this.Day).toBeVisible();
-    //await expect(this.List).toBeVisible();
   }
 
   async createNewPostForCurrentDay() {
@@ -55,14 +50,24 @@ export default class contentPlannerPage extends basePage {
     console.log("Current month is: " + current_month);
     let current_day = await this.Current_Day.textContent();
     console.log("Today's date is: " + current_day);
-    await this.Current_Day.click();
+    await this.clickOnCurrentDate();
     await this.addNewPost();
+  }
+
+  async clickOnCurrentDate() {
+    await this.Current_Day.click();
+  }
+
+  async enterPostTitle() {
+    const randomName = faker.lorem.sentence(5);
+    await this.Post_Title.fill(randomName);
   }
 
   async addNewPost() {
     const randomName = faker.lorem.sentence(5);
     const randomContent = faker.lorem.paragraphs(1);
     await this.Post_Title.fill(randomName);
+    //await this.enterPostTitle();
     await this.Post_Content.fill(randomContent);
     let platform_count = await this.Platforms.count();
     console.log("Platform count is: " + platform_count);
@@ -79,17 +84,11 @@ export default class contentPlannerPage extends basePage {
     await this.Time.click();
     await this.Time.fill("11:00");
     await this.Add_Post.click();
-    // let message = await this.Success_Message.textContent();
-    // expect(this.Success_Message).toHaveText(
-    //   "Content plan created successfully",
-    // );
-    // console.log(message);
     await expect(this.Current_Month).toBeVisible();
     await expect(this.Current_Day).toBeVisible();
     await this.Post.waitFor({ state: "visible" });
     await expect(this.Post).toBeVisible();
     await this.page.locator(`//h4[text()='${randomName}']`).click();
-    //await expect(this.Edit_Post).toBeVisible();
     await expect(this.Open_Full_Full_Editor_Btn).toBeVisible();
   }
 
@@ -100,9 +99,16 @@ export default class contentPlannerPage extends basePage {
     await expect(this.Post_Title).toBeVisible();
     await this.Post_Title.clear();
     await this.Post_Title.fill(randomName);
-    await this.edit_Time.click();
-    await this.edit_Time.fill("17:00");
-    //await expect(this.edit_Time).toHaveText("17:00");
+    await this.Edit_Time.click();
+    await this.Edit_Time.fill("17:00");
     await this.Save_Changes_Btn.click();
+    await this.page.locator(`//h4[text()='${randomName}']`).click();
+    await expect(this.Open_Full_Full_Editor_Btn).toBeVisible();
+  }
+
+  async deletePost() {
+    await this.Open_Full_Full_Editor_Btn.click();
+    await expect(this.Save_Changes_Btn).toBeVisible();
+    await this.delete_Post.click();
   }
 }
