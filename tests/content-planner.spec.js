@@ -22,5 +22,10 @@ test.describe(
       const contPlannerPage = new contentPlannerPage(page);
       await contPlannerPage.editPost();
     });
+
+    test.skip("Deleing the post", async ({ page }) => {
+      const contPlannerPage = new contentPlannerPage(page);
+      await contPlannerPage.deletePost();
+    });
   },
 );
